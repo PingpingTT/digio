@@ -1,4 +1,4 @@
-# digio_train
+# digio
 
 A new Flutter project.
 

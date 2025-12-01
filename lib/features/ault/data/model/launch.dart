@@ -27,4 +27,6 @@ class Launch {
           : [],
     );
   }
+
+  static where(Function(dynamic launch) param0) {}
 }

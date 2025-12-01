@@ -13,10 +13,10 @@ class SpaceXError extends SpaceXState {
 }
 
 class SpaceXLoaded extends SpaceXState {
-  final List LandpadRepo;
-  final List LaunchRepo;
-  final List LaunchpadRepo;
-  final List RocketsRepo;
+  final List<Landpad> LandpadRepo;
+  final List<Launch> LaunchRepo;
+  final List<Launchpad> LaunchpadRepo;
+  final List<Rockets> RocketsRepo;
 
   SpaceXLoaded({
     required this.LandpadRepo,
@@ -24,16 +24,13 @@ class SpaceXLoaded extends SpaceXState {
     required this.LaunchpadRepo,
     required this.RocketsRepo,
   });
-  
-  @override
-  List<Object?> get props => [LandpadRepo, LaunchRepo, LaunchpadRepo, RocketsRepo];
 }
 
 class SpaceXFiltered extends SpaceXState {
-  final List LandpadRepo;
-  final List LaunchRepo;
-  final List LaunchpadRepo;
-  final List RocketsRepo;
+  final List<Landpad> LandpadRepo;
+  final List<Launch> LaunchRepo;
+  final List<Launchpad> LaunchpadRepo;
+  final List<Rockets> RocketsRepo;
 
   SpaceXFiltered({
     required this.LandpadRepo,
@@ -41,7 +38,4 @@ class SpaceXFiltered extends SpaceXState {
     required this.LaunchpadRepo,
     required this.RocketsRepo,
   });
-  
-  @override
-  List<Object?> get props => [LandpadRepo, LaunchRepo, LaunchpadRepo, RocketsRepo];
 }

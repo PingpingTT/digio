@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class LaunchpadService {
-  Future<dynamic> fetchLaunchpad() async {
+  Future<List<dynamic>> fetchLaunchpad() async {
     final Uri url = Uri.parse("https://api.spacexdata.com/v4/launchpads");
 
     try {
@@ -30,7 +30,7 @@ class LaunchpadService {
           throw Exception("Unexpected Error: ${response.statusCode}");
       }
     } on Exception catch (e) {
-      print("network error: $e");
+      throw Exception("network error: $e");
     }
   }
 }

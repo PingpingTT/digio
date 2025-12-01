@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RocketsService {
-  Future<void> fetchRockets() async {
+  Future<List<dynamic>> fetchRockets() async {
     final Uri url = Uri.parse("https://api.spacexdata.com/v4/rockets");
 
     try {
@@ -30,7 +30,7 @@ class RocketsService {
           throw Exception("Unexpected Error: ${response.statusCode}");
       }
     } on Exception catch (e) {
-      print("network errror: $e");
+      throw Exception("network error: $e");
     }
   }
 }

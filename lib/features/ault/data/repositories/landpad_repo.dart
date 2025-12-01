@@ -14,4 +14,4 @@ class LandpadRepoImpl implements LandpadRepo {
 
     return data.map((e) => Landpad.fromJson(e)).toList();
   }
-  }
+}

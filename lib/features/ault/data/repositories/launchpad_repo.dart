@@ -9,9 +9,7 @@ class LaunchpadRepoImpl implements LaunchpadRepo {
 
   @override
   Future<List<Launchpad>> getLaunchpad() async {
-    final rawJson = await service.fetchLaunchpad();
-    final List data = rawJson as List;
-
-    return data.map((e) => Launchpad.fromJson(e)).toList();
+    final raw = await service.fetchLaunchpad();
+     return (raw).map((e) => Launchpad.fromJson(e)).toList();
   }
   }

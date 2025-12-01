@@ -9,9 +9,7 @@ class LandpadRepoImpl implements LandpadRepo {
 
   @override
   Future<List<Landpad>> getLandpad() async {
-    final rawJson = await service.fetchLandpad();
-    final List data = rawJson as List;
-
-    return data.map((e) => Landpad.fromJson(e)).toList();
+    final raw = await service.fetchLandpad();
+    return (raw).map((e) => Landpad.fromJson(e)).toList();
   }
 }

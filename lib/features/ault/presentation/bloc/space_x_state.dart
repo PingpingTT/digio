@@ -13,29 +13,20 @@ class SpaceXError extends SpaceXState {
 }
 
 class SpaceXLoaded extends SpaceXState {
-  final List<Landpad> LandpadRepo;
-  final List<Launch> LaunchRepo;
-  final List<Launchpad> LaunchpadRepo;
-  final List<Rockets> RocketsRepo;
+  final List<Landpad> landpads;
+  final List<Launch> launches;
+  final List<Launchpad> launchpads;
+  final List<Rockets> rockets;
 
   SpaceXLoaded({
-    required this.LandpadRepo,
-    required this.LaunchRepo,
-    required this.LaunchpadRepo,
-    required this.RocketsRepo,
+    required this.landpads,
+    required this.launches,
+    required this.launchpads,
+    required this.rockets,
   });
 }
+class SpaceXFilteredLaunches extends SpaceXState {
+  final List<Launch> filteredLaunches;
 
-class SpaceXFiltered extends SpaceXState {
-  final List<Landpad> LandpadRepo;
-  final List<Launch> LaunchRepo;
-  final List<Launchpad> LaunchpadRepo;
-  final List<Rockets> RocketsRepo;
-
-  SpaceXFiltered({
-    required this.LandpadRepo,
-    required this.LaunchRepo,
-    required this.LaunchpadRepo,
-    required this.RocketsRepo,
-  });
+  SpaceXFilteredLaunches(this.filteredLaunches);
 }

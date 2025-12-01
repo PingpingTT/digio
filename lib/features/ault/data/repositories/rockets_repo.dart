@@ -9,9 +9,7 @@ class RocketsRepoImpl implements RocketsRepo {
 
   @override
   Future<List<Rockets>> getRockets() async {
-    final rawJson = await service.fetchRockets();
-    final List data = rawJson as List;
-
-    return data.map((e) => Rockets.fromJson(e)).toList();
+    final raw = await service.fetchRockets();
+    return (raw).map((e) => Rockets.fromJson(e)).toList();
   }
-  }
+}

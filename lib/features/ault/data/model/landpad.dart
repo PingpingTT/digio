@@ -1,31 +1,21 @@
-class Landpad {
-  final String name;
-  final String fullname;
-  final String status;
-  final String type;
-  final String locality;
-  final String region;
-  final int landingattempts;
-  final int landingsuccesses;
-  final String id;
-  final List<String> images;
-  final String? details;
+import 'package:digio_train/features/ault/domain/entity/landpad_entity.dart';
 
-  Landpad({
-    required this.name,
-    required this.fullname,
-    required this.id,
-    required this.images,
-    this.details,
-    required this.status,
-    required this.type,
-    required this.locality,
-    required this.region,
-    required this.landingattempts,
-    required this.landingsuccesses,
+class LandpadModel extends LandpadEntity {
+  LandpadModel({
+    required super.name,
+    required super.fullname,
+    required super.id,
+    required super.images,
+    super.details,
+    required super.status,
+    required super.type,
+    required super.locality,
+    required super.region,
+    required super.landingattempts,
+    required super.landingsuccesses,
   });
-  factory Landpad.fromJson(Map<String, dynamic> json) {
-    return Landpad(
+  factory LandpadModel.fromJson(Map<String, dynamic> json) {
+    return LandpadModel(
       name: json["name"] ?? "",
       fullname: json["full_name"] ?? "",
       id: json["id"] ?? "",
@@ -39,6 +29,21 @@ class Landpad {
       images: json["images"]?["large"] != null
           ? List<String>.from(json["images"]?["large"])
           : [],
+    );
+  }
+  LandpadEntity toEntity() {
+    return LandpadEntity(
+      name: name,
+      fullname: fullname,
+      id: id,
+      images: images,
+      details: details,
+      status: status,
+      type: type,
+      locality: locality,
+      region: region,
+      landingattempts: landingattempts,
+      landingsuccesses: landingsuccesses,
     );
   }
 }

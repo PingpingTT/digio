@@ -13,20 +13,14 @@ class SpaceXError extends SpaceXState {
 }
 
 class SpaceXLoaded extends SpaceXState {
-  final List<Landpad> landpads;
-  final List<Launch> launches;
-  final List<Launchpad> launchpads;
-  final List<Rockets> rockets;
+  final AllEntity allEntity;
 
   SpaceXLoaded({
-    required this.landpads,
-    required this.launches,
-    required this.launchpads,
-    required this.rockets,
+    required this.allEntity,
   });
 }
 class SpaceXFilteredLaunches extends SpaceXState {
-  final List<Launch> filteredLaunches;
+  final List<LaunchEntity> filteredLaunches;
 
   SpaceXFilteredLaunches(this.filteredLaunches);
 }

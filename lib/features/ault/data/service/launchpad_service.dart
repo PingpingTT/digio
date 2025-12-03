@@ -1,16 +1,18 @@
 import 'dart:convert';
 
+import 'package:digio_train/features/ault/data/model/launchpad.dart';
 import 'package:http/http.dart' as http;
 
-class LandpadService {
-  Future<List<dynamic>> fetchLandpad() async {
-    final Uri url = Uri.parse("https://api.spacexdata.com/v4/landpads");
+class LaunchpadService {
+  Future<List<LaunchpadModel>> fetchLaunchpad() async {
+    final Uri url = Uri.parse("https://api.spacexdata.com/v4/launchpads");
 
     try {
       final response = await http.get(url);
       switch (response.statusCode) {
         case 200:
-          return jsonDecode(response.body);
+          final List raw = jsonDecode(response.body);
+          return raw.map((e) => LaunchpadModel.fromJson(e)).toList();
         case 400:
           throw Exception("bad request (400)");
         case 401:

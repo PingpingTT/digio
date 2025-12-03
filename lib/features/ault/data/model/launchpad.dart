@@ -1,33 +1,23 @@
-class Launchpad {
-  final String name;
-  final String fullname;
-  final String status;
-  final String locality;
-  final String region;
-  final int launchattempts;
-  final int launchsuccesses;
-  final String id;
-  final List<String> images;
-  final String? details;  
-  final List<String> rockets;
-  final String? timezone;
-  
-  Launchpad({
-    required this.name,
-    required this.fullname,
-    required this.status,
-    required this.locality,
-    required this.region,
-    required this.launchattempts,
-    required this.launchsuccesses,
-    required this.id,
-    required this.images,
-    required this.rockets,
-    this.timezone,
-    this.details,
+import 'package:digio_train/features/ault/domain/entity/launchpad_entity.dart';
+
+class LaunchpadModel extends LaunchpadEntity{ 
+
+  LaunchpadModel({
+    required super.name,
+    required super.fullname,
+    required super.status,
+    required super.locality,
+    required super.region,
+    required super.launchattempts,
+    required super.launchsuccesses,
+    required super.id,
+    required super.images,
+    required super.rockets,
+    super.timezone,
+    super.details,
   });
-  factory Launchpad.fromJson(Map<String,dynamic>json){
-    return Launchpad(
+  factory LaunchpadModel.fromJson(Map<String,dynamic>json){
+    return LaunchpadModel(
       name: json["name"]??"",
       fullname: json["full_name"]??"",
       status: json["status"]??"",
@@ -42,6 +32,22 @@ class Launchpad {
       rockets: json["rockets"] != null ?List<String>.from(json["rockets"]):[],
       timezone: json["timezone"],
       details: json["details"],
+    );
+  }
+  LaunchpadEntity toEntity() {
+    return LaunchpadEntity(
+      name: name,
+      fullname: fullname,
+      status: status,
+      locality: locality,
+      region: region,
+      launchattempts: launchattempts,
+      launchsuccesses: launchsuccesses,
+      id: id,
+      images: images,
+      rockets: rockets,
+      timezone: timezone,
+      details: details,
     );
   }
 }

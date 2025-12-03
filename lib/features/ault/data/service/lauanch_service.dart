@@ -1,16 +1,18 @@
 import 'dart:convert';
 
+import 'package:digio_train/features/ault/data/model/launch.dart';
 import 'package:http/http.dart' as http;
 
 class LaunchService {
-  Future<List<dynamic>> fetchLaunches() async {
+  Future<List<LaunchModel>> fetchLaunches() async {
     final Uri url = Uri.parse("https://api.spacexdata.com/v4/launches");
 
     try {
       final response = await http.get(url);
       switch (response.statusCode) {
         case 200:
-          return jsonDecode(response.body);
+          final List raw = jsonDecode(response.body);
+          return raw.map((e) => LaunchModel.fromJson(e)).toList();
         case 400:
           throw Exception("bad request (400)");
         case 401:

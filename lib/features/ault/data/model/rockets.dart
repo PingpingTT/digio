@@ -1,29 +1,21 @@
-class Rockets {
-  final String id;
-  final String name;
-  final String type;
-  final bool active;
-  final int stages;
-  final int boosters;
-  final String firstFlight;
-  final String company;
-  final String? description;
-  final List<String>? flickrImages;
+import 'package:digio_train/features/ault/domain/entity/rockets_entity.dart';
 
-  Rockets({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.active,
-    required this.stages,
-    required this.boosters,
-    required this.firstFlight,
-    required this.company,
-    this.description,
-    this.flickrImages,
+class RocketsModel extends RocketsEntity{
+
+  RocketsModel({
+    required super.id,
+    required super.name,
+    required super.type,
+    required super.active,
+    required super.stages,
+    required super.boosters,
+    required super.firstFlight,
+    required super.company,
+    super.description,
+    super.flickrImages,
   });
-  factory Rockets.fromJson(Map<String, dynamic> json) {
-    return Rockets(
+  factory RocketsModel.fromJson(Map<String, dynamic> json) {
+    return RocketsModel(
       id: json["id"] ?? "",
       name: json["name"] ?? "",
       type: json["type"] ?? "",
@@ -36,6 +28,21 @@ class Rockets {
       flickrImages: json["flickr_images"] != null
           ? List<String>.from(json['flickr_images'])
           : [],
+    );
+  }
+
+  RocketsEntity toEntity() {
+    return RocketsEntity(
+      id: id,
+      name: name,
+      type: type,
+      active: active,
+      stages: stages,
+      boosters: boosters,
+      firstFlight: firstFlight,
+      company: company,
+      description: description,
+      flickrImages: flickrImages,
     );
   }
 }

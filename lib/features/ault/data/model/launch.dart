@@ -1,22 +1,17 @@
-class Launch {
-  final String name;
-  final String id;
-  final DateTime dateutc;
-  final bool? succes;
-  final String? patchImage;
-  final List<String>? flickrImages;
+import 'package:digio_train/features/ault/domain/entity/launch_entity.dart';
 
-  Launch({
-    required this.id,
-    required this.name,
-    required this.dateutc,
-    this.succes,
-    this.patchImage,
-    this.flickrImages,
+class LaunchModel extends LaunchEntity{
+  LaunchModel({
+    required super.id,
+    required super.name,
+    required super.dateutc,
+    super.succes,
+    super.patchImage,
+    super.flickrImages,
   });
 
-  factory Launch.fromJson(Map<String, dynamic> json) {
-    return Launch(
+  factory LaunchModel.fromJson(Map<String, dynamic> json) {
+    return LaunchModel(
       id: json["id"] ?? "",
       name: json["name"] ?? "",
       dateutc: DateTime.parse(json["date_utc"]),
@@ -27,6 +22,14 @@ class Launch {
           : [],
     );
   }
-
-  static where(Function(dynamic launch) param0) {}
+  LaunchEntity toEntity() {
+    return LaunchEntity(
+      id: id,
+      name: name,
+      dateutc: dateutc,
+      succes: succes,
+      patchImage: patchImage,
+      flickrImages: flickrImages,
+    );
+  }
 }

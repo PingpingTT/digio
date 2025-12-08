@@ -11,7 +11,7 @@ class LandpadEntity {
   final List<String> images;
   final String? details;
 
-  LandpadEntity ({
+  LandpadEntity({
     required this.name,
     required this.fullname,
     required this.id,
@@ -24,4 +24,19 @@ class LandpadEntity {
     required this.landingattempts,
     required this.landingsuccesses,
   });
+  factory LandpadEntity.empty() {
+    return LandpadEntity(
+      name: '',
+      fullname: '',
+      id: '',
+      images: const [],
+      details: '',
+      status: '',
+      type: '',
+      locality: '',
+      region: '',
+      landingattempts: 0,
+      landingsuccesses: 0,
+    );
+  }
 }

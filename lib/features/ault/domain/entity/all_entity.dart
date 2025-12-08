@@ -1,4 +1,3 @@
-
 import 'package:digio_train/features/ault/domain/entity/landpad_entity.dart';
 import 'package:digio_train/features/ault/domain/entity/launch_entity.dart';
 import 'package:digio_train/features/ault/domain/entity/launchpad_entity.dart';

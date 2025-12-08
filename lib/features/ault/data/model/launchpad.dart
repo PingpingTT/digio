@@ -1,7 +1,6 @@
 import 'package:digio_train/features/ault/domain/entity/launchpad_entity.dart';
 
-class LaunchpadModel extends LaunchpadEntity{ 
-
+class LaunchpadModel extends LaunchpadEntity {
   LaunchpadModel({
     required super.name,
     required super.fullname,
@@ -16,20 +15,22 @@ class LaunchpadModel extends LaunchpadEntity{
     super.timezone,
     super.details,
   });
-  factory LaunchpadModel.fromJson(Map<String,dynamic>json){
+  factory LaunchpadModel.fromJson(Map<String, dynamic> json) {
     return LaunchpadModel(
-      name: json["name"]??"",
-      fullname: json["full_name"]??"",
-      status: json["status"]??"",
-      locality: json["locality"]??"",
-      region:json["region"]??"",
-      launchattempts: json["launch_attempts"]??0,
-      launchsuccesses: json["launch_successes"]??0,
-      id: json["id"]??"",
+      name: json["name"] ?? "",
+      fullname: json["full_name"] ?? "",
+      status: json["status"] ?? "",
+      locality: json["locality"] ?? "",
+      region: json["region"] ?? "",
+      launchattempts: json["launch_attempts"] ?? 0,
+      launchsuccesses: json["launch_successes"] ?? 0,
+      id: json["id"] ?? "",
       images: json["images"]?["large"] != null
           ? List<String>.from(json["images"]?["large"])
           : [],
-      rockets: json["rockets"] != null ?List<String>.from(json["rockets"]):[],
+      rockets: json["rockets"] != null
+          ? List<String>.from(json["rockets"])
+          : [],
       timezone: json["timezone"],
       details: json["details"],
     );

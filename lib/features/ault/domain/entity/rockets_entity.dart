@@ -22,4 +22,18 @@ class RocketsEntity {
     this.description,
     this.flickrImages,
   });
+  factory RocketsEntity.empty() {
+    return RocketsEntity(
+      id: '',
+      name: '',
+      type: '',
+      active: false,
+      stages: 0,
+      boosters: 0,
+      firstFlight: '',
+      company: '',
+      description: '',
+      flickrImages: const [],
+    );
+  }
 }

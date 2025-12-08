@@ -7,7 +7,6 @@ import 'package:digio_train/features/ault/data/service/lauanch_service.dart';
 import 'package:digio_train/features/ault/data/service/launchpad_service.dart';
 import 'package:digio_train/features/ault/data/service/rockets_service.dart';
 
-
 class AllService {
   final LaunchService launchService;
   final LaunchpadService launchpadService;
@@ -30,11 +29,11 @@ class AllService {
       launchpads: launchpads,
       landpads: landpads,
       rockets: rockets,
- );
+    );
   }
 }
 
-class AllModel{
+class AllModel {
   final List<LandpadModel> landpads;
   final List<LaunchModel> launches;
   final List<LaunchpadModel> launchpads;
@@ -45,5 +44,5 @@ class AllModel{
     required this.launches,
     required this.launchpads,
     required this.rockets,
-});
+  });
 }

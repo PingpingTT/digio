@@ -3,14 +3,14 @@ import 'package:digio_train/features/ault/domain/entity/all_entity.dart';
 import 'package:digio_train/features/ault/domain/repositories/all_repo.dart';
 
 class AllRepoImpl implements AllRepo {
-  final  AllService service;
+  final AllService service;
 
   AllRepoImpl(this.service);
 
   @override
-  Future<AllEntity> getAllData() async{
+  Future<AllEntity> getAllData() async {
     final raw = await service.fetchAllData();
-  
+
     return AllEntity(
       Landpads: raw.landpads.map((e) => e.toEntity()).toList(),
       Launches: raw.launches.map((e) => e.toEntity()).toList(),
@@ -18,5 +18,4 @@ class AllRepoImpl implements AllRepo {
       Rockets: raw.rockets.map((e) => e.toEntity()).toList(),
     );
   }
-
 }

@@ -29,11 +29,14 @@ class SpaceXBloc extends Bloc<SpaceXEvent, SpaceXState> {
     }
   }
 
-  void onfilterlaunches(FilterLaunchEvent event, Emitter<SpaceXState> emit) async {
+  void onfilterlaunches(
+    FilterLaunchEvent event,
+    Emitter<SpaceXState> emit,
+  ) async {
     final query = event.query.toLowerCase();
     final filtered = allData.Launches.where(
       (l) => l.name.toLowerCase().contains(query),
     ).toList();
-    emit(SpaceXFilteredLaunches(filtered));
+    emit(SpaceXFilteredLaunches(filtered, allData));
   }
 }

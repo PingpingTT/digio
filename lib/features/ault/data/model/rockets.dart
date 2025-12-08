@@ -1,7 +1,6 @@
 import 'package:digio_train/features/ault/domain/entity/rockets_entity.dart';
 
-class RocketsModel extends RocketsEntity{
-
+class RocketsModel extends RocketsEntity {
   RocketsModel({
     required super.id,
     required super.name,

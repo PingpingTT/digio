@@ -12,7 +12,7 @@ class LandpadService {
       switch (response.statusCode) {
         case 200:
           final List raw = jsonDecode(response.body);
-           return raw.map((e) => LandpadModel.fromJson(e)).toList();
+          return raw.map((e) => LandpadModel.fromJson(e)).toList();
         case 400:
           throw Exception("bad request (400)");
         case 401:

@@ -1,7 +1,7 @@
 class LaunchEntity {
   final String name;
   final String id;
-  final DateTime dateutc;
+  final DateTime dateUtc;
   final bool? succes;
   final String? patchImage;
   final List<String>? flickrImages;
@@ -9,9 +9,10 @@ class LaunchEntity {
   LaunchEntity({
     required this.id,
     required this.name,
-    required this.dateutc,
+    required this.dateUtc,
     this.succes,
     this.patchImage,
     this.flickrImages,
+
   });
 }

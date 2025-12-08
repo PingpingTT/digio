@@ -8,10 +8,10 @@ class LaunchpadEntity {
   final int launchsuccesses;
   final String id;
   final List<String> images;
-  final String? details;  
+  final String? details;
   final List<String> rockets;
   final String? timezone;
-  
+
   LaunchpadEntity({
     required this.name,
     required this.fullname,
@@ -26,4 +26,20 @@ class LaunchpadEntity {
     this.timezone,
     this.details,
   });
+  factory LaunchpadEntity.empty() {
+    return LaunchpadEntity(
+      name: '',
+      fullname: '',
+      status: '',
+      locality: '',
+      region: '',
+      launchattempts: 0,
+      launchsuccesses: 0,
+      id: '',
+      images: const [],
+      rockets: const [],
+      timezone: '',
+      details: '',
+    );
+  }
 }

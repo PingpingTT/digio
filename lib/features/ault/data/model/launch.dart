@@ -4,17 +4,18 @@ class LaunchModel extends LaunchEntity{
   LaunchModel({
     required super.id,
     required super.name,
-    required super.dateutc,
+    required super.dateUtc,
     super.succes,
     super.patchImage,
     super.flickrImages,
+    
   });
 
   factory LaunchModel.fromJson(Map<String, dynamic> json) {
     return LaunchModel(
       id: json["id"] ?? "",
       name: json["name"] ?? "",
-      dateutc: DateTime.parse(json["date_utc"]),
+      dateUtc: DateTime.parse(json["date_utc"]),
       succes: json["sucesses"],
       patchImage: json["links"]?["patch"]?["small"],
       flickrImages: json["links"]?["flickr"]?["original"] != null
@@ -26,7 +27,7 @@ class LaunchModel extends LaunchEntity{
     return LaunchEntity(
       id: id,
       name: name,
-      dateutc: dateutc,
+      dateUtc: dateUtc,
       succes: succes,
       patchImage: patchImage,
       flickrImages: flickrImages,

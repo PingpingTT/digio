@@ -5,9 +5,12 @@ class LaunchModel extends LaunchEntity{
     required super.id,
     required super.name,
     required super.dateUtc,
-    super.succes,
+    super.success,
     super.patchImage,
     super.flickrImages,
+    required super.launchpadId,
+    required super.landpadId,
+    required super.rocketId,
     
   });
 
@@ -16,11 +19,16 @@ class LaunchModel extends LaunchEntity{
       id: json["id"] ?? "",
       name: json["name"] ?? "",
       dateUtc: DateTime.parse(json["date_utc"]),
-      succes: json["sucesses"],
+      success: json["sucesses"],
       patchImage: json["links"]?["patch"]?["small"],
       flickrImages: json["links"]?["flickr"]?["original"] != null
           ? List<String>.from(json["links"]?["flickr"]?["original"])
           : [],
+      launchpadId: json["launchpad"] ?? "",
+     landpadId: json["cores"] != null && json["cores"].isNotEmpty
+        ? json["cores"][0]["landpad"] ?? ""
+        : "",
+      rocketId: json["rocket"] ?? "",
     );
   }
   LaunchEntity toEntity() {
@@ -28,9 +36,12 @@ class LaunchModel extends LaunchEntity{
       id: id,
       name: name,
       dateUtc: dateUtc,
-      succes: succes,
+      success: success,
       patchImage: patchImage,
       flickrImages: flickrImages,
+      launchpadId: launchpadId,
+      landpadId: landpadId,
+      rocketId: rocketId,
     );
   }
 }

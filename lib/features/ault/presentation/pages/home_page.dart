@@ -1,3 +1,4 @@
+import 'package:digio_train/features/ault/domain/entity/all_entity.dart';
 import 'package:digio_train/features/ault/domain/entity/launch_entity.dart';
 import 'package:digio_train/features/ault/presentation/bloc/space_x_bloc.dart';
 import 'package:digio_train/features/ault/presentation/pages/detail.dart';
@@ -46,11 +47,11 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 if (state is SpaceXLoaded) {
-                  return _buildLaunchList(state.allEntity.Launches);
+                  return _buildLaunchList(state.allEntity.Launches,state.allEntity);
                 }
 
                 if (state is SpaceXFilteredLaunches) {
-                  return _buildLaunchList(state.filteredLaunches);
+                  return _buildLaunchList(state.filteredLaunches ,state.allEntity);
                 }
 
                 return const SizedBox();
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildLaunchList(List<LaunchEntity> launches) {
+  Widget _buildLaunchList(List<LaunchEntity> launches , AllEntity allEntity) {
     return ListView.builder(
       itemCount: launches.length,
       itemBuilder: (context, index) {
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Detail(launch: launch,),
+                builder: (context) => Detail(allEntity: allEntity ,index:index,),
               ),
             );
           },
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               :const Icon(Icons.rocket_launch),
           title: Text(launch.name),
           subtitle: Text(
-            "Date: ${launch.dateUtc.toIso8601String().substring(0, 10)} - ${launch.succes == true ? 'Success' : 'Failed'}",
+            "Date: ${launch.dateUtc.toIso8601String().substring(0, 10)} - ${launch.success == true ? 'Success' : 'Failed'}",
 
           ),
         );

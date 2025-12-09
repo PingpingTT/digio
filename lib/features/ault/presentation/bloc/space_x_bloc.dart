@@ -13,10 +13,11 @@ class SpaceXBloc extends Bloc<SpaceXEvent, SpaceXState> {
   late AllEntity allData;
 
   SpaceXBloc(this.usecase) : super(SpaceXInitial()) {
-    on<FilterLaunchEvent>(onfilterlaunches);
-    on<FetchAllDataEvent>(onfetchalldata);
+    on<FilterLaunchEvent>(onFilterLaunches);
+    on<FetchAllDataEvent>(onFetchAllData);
   }
-  Future<void> onfetchalldata(
+
+  Future<void> onFetchAllData(
     FetchAllDataEvent event,
     Emitter<SpaceXState> emit,
   ) async {
@@ -29,14 +30,16 @@ class SpaceXBloc extends Bloc<SpaceXEvent, SpaceXState> {
     }
   }
 
-  void onfilterlaunches(
+  void onFilterLaunches(
     FilterLaunchEvent event,
     Emitter<SpaceXState> emit,
-  ) async {
+  ) {
     final query = event.query.toLowerCase();
-    final filtered = allData.Launches.where(
-      (l) => l.name.toLowerCase().contains(query),
-    ).toList();
+
+    final filtered = allData.Launches
+        .where((launch) => launch.name.toLowerCase().contains(query))
+        .toList();
+
     emit(SpaceXFilteredLaunches(filtered, allData));
   }
 }

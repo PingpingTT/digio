@@ -148,7 +148,7 @@ class Detail extends StatelessWidget {
               padding: EdgeInsets.all(20),
               child: Text(
                 "Landpad not found details",
-                style: TextStyle(fontSize: 16, color: Colors.red),
+                style: TextStyle(fontSize: 16, color: Colors.deepOrange),
               ),
             ),
         ],

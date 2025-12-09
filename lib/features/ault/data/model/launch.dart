@@ -1,6 +1,6 @@
 import 'package:digio_train/features/ault/domain/entity/launch_entity.dart';
 
-class LaunchModel extends LaunchEntity{
+class LaunchModel extends LaunchEntity {
   LaunchModel({
     required super.id,
     required super.name,
@@ -11,7 +11,6 @@ class LaunchModel extends LaunchEntity{
     required super.launchpadId,
     required super.landpadId,
     required super.rocketId,
-    
   });
 
   factory LaunchModel.fromJson(Map<String, dynamic> json) {
@@ -25,9 +24,7 @@ class LaunchModel extends LaunchEntity{
           ? List<String>.from(json["links"]?["flickr"]?["original"])
           : [],
       launchpadId: json["launchpad"] ?? "",
-     landpadId: json["cores"] != null && json["cores"].isNotEmpty
-        ? json["cores"][0]["landpad"] ?? ""
-        : "",
+      landpadId: json["cores"]?[0]?["landpad"] ?? "",
       rocketId: json["rocket"] ?? "",
     );
   }

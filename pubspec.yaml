@@ -39,6 +39,7 @@ dependencies:
   collection: ^1.19.1
   bloc: ^9.1.0
   meta: ^1.16.0
+  get_it: ^9.2.0
 
 dev_dependencies:
   flutter_test:

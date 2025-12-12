@@ -1,3 +1,4 @@
+
 import 'package:digio_train/features/ault/domain/entity/all_entity.dart';
 import 'package:digio_train/features/ault/domain/entity/launch_entity.dart';
 import 'package:digio_train/features/ault/presentation/bloc/space_x_bloc.dart';
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Detail(allEntity: allEntity ,index:index,),
+                builder: (context) => Detail(index:index,),
               ),
             );
           },

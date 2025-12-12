@@ -1,158 +1,122 @@
-import 'package:digio_train/features/ault/domain/entity/all_entity.dart';
-import 'package:digio_train/features/ault/domain/entity/landpad_entity.dart';
-import 'package:digio_train/features/ault/domain/entity/launchpad_entity.dart';
-import 'package:digio_train/features/ault/domain/entity/rockets_entity.dart';
+import 'package:collection/collection.dart';
+import 'package:digio_train/features/ault/presentation/bloc/space_x_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Detail extends StatelessWidget {
-  final AllEntity allEntity;
   final int index;
 
-  const Detail({super.key, required this.allEntity, required this.index});
+  const Detail({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    final launch = allEntity.Launches[index];
+    return BlocBuilder<SpaceXBloc, SpaceXState>(
+      builder: (context, state) {
+        if (state is SpaceXLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
 
-    LaunchpadEntity? launchpad;
+        if (state is SpaceXLoaded || state is SpaceXFilteredLaunches) {
+          final all = (state is SpaceXLoaded)
+              ? state.allEntity
+              : (state as SpaceXFilteredLaunches).allEntity;
 
-    try {
-      launchpad = allEntity.Launchpads.firstWhere(
-        (lp) => lp.id == launch.launchpadId,
-      );
-    } catch (e) {
-      launchpad = null;
-    }
+          final launch = all.Launches[index];
 
-    LandpadEntity? landpad;
-    try {
-      landpad = allEntity.Landpads.firstWhere(
-        (lp) => lp.id == launch.landpadId,
-      );
-    } catch (e) {
-      landpad = null;
-    }
-    RocketsEntity? rockets;
-    try {
-      rockets =
-          allEntity.Rockets.firstWhere((lp) => lp.id == launch.rocketId)
-              as RocketsEntity?;
-    } catch (e) {
-      rockets = null;
-    }
+          final launchpad = all.Launchpads.firstWhereOrNull(
+            (lp) => lp.id == launch.launchpadId,
+          );
 
+          final rocket = all.Rockets.firstWhereOrNull(
+            (r) => r.id == launch.rocketId,
+          );
+
+          final landpad = all.Landpads.firstWhereOrNull(
+            (lp) => lp.id == launch.landpadId,
+          );
+
+          return _buildDetailUI(launch, launchpad, rocket, landpad);
+        }
+
+        return const Scaffold(body: Center(child: Text("No Data Found")));
+      },
+    );
+  }
+
+  Widget _buildDetailUI(launch, launchpad, rocket, landpad) {
     return Scaffold(
       appBar: AppBar(
         title: Text("${launch.name} Details"),
         foregroundColor: Colors.white,
         backgroundColor: Colors.grey,
       ),
-
       body: ListView(
-        padding: EdgeInsets.all(20),
-        children: <Widget>[
+        padding: const EdgeInsets.all(20),
+        children: [
           const SizedBox(height: 20),
 
           launch.patchImage != null
               ? Image.network(launch.patchImage!)
-              : const Icon(Icons.rocket_launch),
+              : const Icon(Icons.rocket_launch, size: 80),
 
           const SizedBox(height: 20),
 
-          if (launchpad != null)
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Full Name ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(launchpad.fullname),
-                  SizedBox(height: 10),
-                  Text(
-                    "Date Luanch & Status ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(
-                    "${launch.dateUtc.toLocal()} - ${launch.success == true ? 'Success' : 'Failed'}",
-                  ),
-                ],
-              ),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "Launchpad / Landpad not found",
-                style: TextStyle(fontSize: 16, color: Colors.red),
-              ),
+          if (launchpad != null) ...[
+            Text("Launchpad", style: _titleStyle),
+            Text(launchpad.fullname),
+            const SizedBox(height: 10),
+            Text("Date & Status", style: _titleStyle),
+            Text(
+              "${launch.dateUtc.toLocal()} - "
+              "${launch.success == true ? 'Success' : 'Failed'}",
             ),
-          //Launcghpad Image and Details
-          if (launchpad != null && launchpad.images.isNotEmpty)
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(launchpad.images.first),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Lanchpad Detail ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(launchpad.details ?? "No launchpad details"),
-                ],
-              ),
-            )
-          else
-            const Icon(Icons.image_not_supported),
+            const SizedBox(height: 20),
 
-          //Rocket Image and Details
-          if (rockets != null && rockets.flickrImages!.isNotEmpty)
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(rockets.flickrImages!.first),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Rocket Detail ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(rockets.description ?? "No rocket details"),
-                ],
-              ),
-            )
-          else
-            const Icon(Icons.image_not_supported),
-          //Landpad Details
-          if (landpad != null)
-            Padding(
-              padding: EdgeInsets.all(20),
-              child:Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(landpad.images.first),
-                const SizedBox(height: 20),
-                  Text( "Landpad Detail ",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                  const SizedBox(height: 10),
-                    Text(landpad.details ?? "No landpad details"),
-                ],
-              )
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                "Landpad not found details",
-                style: TextStyle(fontSize: 16, color: Colors.deepOrange),
-              ),
-            ),
+            if (launchpad.images.isNotEmpty)
+            Text("Launchpad", style: _titleStyle),
+              Image.network(launchpad.images.first),
+
+            const SizedBox(height: 10),
+
+            Text("Launchpad Detail", style: _titleStyle),
+            Text(launchpad.details ?? "No details available"),
+          ] else
+            _errorText("Launchpad not found"),
+
+          const SizedBox(height: 30),
+
+          if (rocket != null) ...[
+            Text("Rocket", style: _titleStyle),
+            if (rocket.flickrImages != null && rocket.flickrImages!.isNotEmpty)
+              Image.network(rocket.flickrImages!.first),
+            const SizedBox(height: 10),
+            Text("Rocket Details", style: _titleStyle),
+            Text(rocket.description ?? "No rocket details"),
+          ] else
+            _errorText("Rocket not found"),
+
+          const SizedBox(height: 30),
+
+          if (landpad != null) ...[
+            Text("Landpad", style: _titleStyle),
+            Image.network(landpad.images.first),
+            const SizedBox(height: 10),
+            Text("Landpad Detail", style: _titleStyle),
+            Text(landpad.details ?? "No landpad details"),
+          ] else
+            _errorText("Landpad not found"),
         ],
       ),
     );
   }
+
+  TextStyle get _titleStyle =>
+      const TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
+
+  Widget _errorText(String msg) => Padding(
+    padding: const EdgeInsets.all(10),
+    child: Text(msg, style: const TextStyle(color: Colors.red)),
+  );
 }
